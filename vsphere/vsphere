@@ -1,1 +1,15 @@
+1. vSphere란?
+ - VMware에서 제공하는 서버 가상화 '플랫폼'
+ - ESXi + vCenter + 기타 기능 합쳐진 관리시스템
 
+2. vSphere 구성
+                    vCeenter Server
+   ┌──┬──┬─────────────┬─┼─┬───────────┬──┬──┐
+   vm vm vm...       vm vm vm...       vm vm vm...
+   ESXi              ESXi              ESXi              
+   baremetal Server  baremetal Server  baremetal Server
+
+ - baremetal Server: 물리서버
+ - ESXi: baremetal Server 위에 설치되는 하이퍼바이저
+ - vm: ESXi 위에 설치되는 가상머신
+ 
