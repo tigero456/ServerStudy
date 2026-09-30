@@ -1,0 +1,17 @@
+HPE 세미나 : Morpheus VM Essentials 파트너 엔지니어 세미나
+
+수협은행 : 리눅스 보안취약점 조치관련 이중화 전환 지원 (SGLX)
+1. nssap01, nssap02, nssdb01, nssdb02 보안취약점 조취 (CVE-46300) 및 nssdb01, nssdb02 SGLX 가용성 테스트
+2. 보안취약점 조취는 타업체에서 작업
+3. 타업체 엔지니어가 보안취약점 조취 후 작업계획서와 다르게 롤링 재기동이 아닌 4대 전체 한번에 재기동
+4. 서버, 서비스는 다운타임이 길지않게 올라왔음
+5. nssdb01, nssdb02 SGLX 가용성 테스트 완료
+    5.1 작업 명령어
+        a. node 중지 : cmhaltnode -v -f nssdb01
+        b. node 활성화 : cmrunnode nssdb01
+        c. cluster 확인 : cmviewcl -v
+        d. node 중지 : cmhaltnode -v -f nssdb02
+        e. node 활성화 : cmrunnode nssdb02
+        f. cluster 확인 : cmviewcl -v
+
+수협은행 : 2026년도 09월 정기점검
