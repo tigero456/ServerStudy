@@ -1,1 +1,6 @@
-
+VME 구성
+1. HVM iso 설치
+    1.1 os는 ubuntu이며 총 3대 설치
+2. os 설치
+3. 환경 구성 후 # hpe-vm 명령어 입력하여 vm-manager 설치
+4. 
