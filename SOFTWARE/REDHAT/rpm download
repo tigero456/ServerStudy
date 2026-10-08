@@ -1,0 +1,11 @@
+REDHAT rpm file download web site link
+    https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/packages
+
+1. Product Variant:
+    8버전 이상일 경우 Red Hat Enterprise Linux for x86_64
+    8버전 이하일 경우 Red Hat Enterprise Linux Server
+2. Version:
+    버전 선택
+3. Packages 메뉴 이동
+4. Search 란에 원하는 패키지명 검색
+5. 패키지 선택 후 버전 선택하여 다운로드

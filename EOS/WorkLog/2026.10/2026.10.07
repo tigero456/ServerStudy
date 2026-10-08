@@ -1,0 +1,6 @@
+롯데손해보험 : 2026년도 10월 정기점검
+1. PAIOAP3  md126 raid 사용
+2. PDMLAP04 MegaRaid 사용
+    2.1 # /opt/hpe/storcli
+3. lotnpfrbel10 array error
+    3.1 물리적으로 문제없음

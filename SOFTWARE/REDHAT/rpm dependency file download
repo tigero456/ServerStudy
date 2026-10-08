@@ -1,0 +1,2 @@
+설치하려는 rpm file 의존성걸린 파일 현재 위치 경로에 전부 다운로드
+# dnf download --resolve <rpm file>
