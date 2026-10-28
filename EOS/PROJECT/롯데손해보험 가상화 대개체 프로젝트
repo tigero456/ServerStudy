@@ -1,1 +1,81 @@
-1. 
+1. 반입 장비 리스트
+    1.1 HPE DL380 Gen11 2U Server 3대
+        1.1.1 CPU: 2
+        1.1.2 Memory: 2048 GB
+        1.1.3 Disk: 480 GB SSD * 2EA
+        1.1.4 NIC: 10G 2P SFP+ * 4EA
+                32G 2P HBA * 2EA
+                1G 4P UTP * 1EA
+    1.2 HPE Alletra MP B10230 Storage 3대
+        1.2.1 Disk: 7.68 TB NVMe SSD * 20EA
+        1.2.2 NIC: 
+    1.3 HPE Aruba Switch 2대
+2. 서버 및 스토리지 사용 랙
+    1. HPE DL380 Gen11: 02BU56          2-3, 5-6, 8-9
+    2. HPE Alletra MP B10230: 02BU49    25-26, 28-29, 30-31
+    3. HPE Aruba Switch: 02BU49         39, 41
+3. 서버 및 스토리지 제원 정보
+    * 최대 소비전력 기준
+    * 반입보고용 소비전력 → 최대소비전력의 60% 수준으로 산정
+    3.1 모델명              DL380 Gen11     Alletra MP B10230
+    3.2 최대소비전력         1668.91W        3360W
+    3.3 반입보고용 소비전력   1001.35W        2016W
+4. IP table
+    솔루션                IP Address     Hostname       장비명                  용도
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.1 iLO IP:          10.150.0.25                    HPE DL380 Gen11        HW MGMT
+                         10.150.0.26                    HPE DL380 Gen11        HW MGMT
+                         10.150.0.27                    HPE DL380 Gen11        HW MGMT
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.2 VME MGMT IP:     10.150.1.68    PHVMAP01        HPE DL380 Gen11        10G Host MGMT(vMotion/Zerto)
+                         10.150.1.69    PHVMAP02        HPE DL380 Gen11        10G Host MGMT(vMotion/Zerto)
+                         10.150.1.70    PHVMAP03        HPE DL380 Gen11        10G Host MGMT(vMotion/Zerto)
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.3 Storage MGMT IP: 10.150.1.65                    HPE Alletra MP B10230  VME ↔ Storage 연결
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.4 VME Manager IP:  10.150.1.67    PVMEAP01        Virtual Machine        VME Manager
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.5 ZERTO_PROD IP:   192.170.1.71   PZVMAP02        Virtual Machine        Prod ZVM
+                         192.170.1.72   PVRAAP04        Virtual Machine        Prod VRA 1
+                         192.170.1.73   PVRAAP05        Virtual Machine        Prod VRA 2
+                         192.170.1.74   PVRAAP06        Virtual Machine        Prod VRA 3
+                         192.170.1.75   PVRAAP07        Virtual Machine        Prod VRA 4     
+                         192.170.1.76   PVRAAP08        Virtual Machine        Prod VRA 5
+                         192.170.1.77   PVRAAP09        Virtual Machine        Prod VRA 6
+                         192.170.1.78   PVRAAP10        Virtual Machine        Prod VRA 7
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.6 ZERTO_TARGET IP: 192.170.1.67   PZVMAP01        Virtual Machine        Target ZVM
+                         192.170.1.68   PVRAAP01        Virtual Machine        Target VRA 1
+                         192.170.1.69   PVRAAP02        Virtual Machine        Target VRA 2
+                         192.170.1.70   PVRAAP03        Virtual Machine        Target VRA 3
+    ───────────────────────────────────────────────────────────────────────────────────────────────────────
+    4.7 NFS IP
+
+4. 문의사항
+    4.1 Storage MGMT Cable 용도
+        4.1.1 포트: Admin (MGMT)
+        4.1.2 용도: 스토리지 관리UI, CLI 및 관리 네트워크 접속
+        4.1.3 CDM: 섀시 검색, 노드 복구 및 클러스터 확장 관련 통신
+    4.2 Disk Shelf 증설 시 제약 조건
+        4.2.1 Performance Optimized: controller 수량 상관 없이 shelf 8ea 가능
+        4.2.1 Capacity Optimized: controller 수량 상관 없이 shelf ~ 16ea 증설 가능
+        4.2.3 Controller 증설: 4 controller → 6 controller 증설 시 성능 향상, disk shelf
+    4.3 NFS Service ip
+        4.3.1 NFS ip 1개로 구성 시 controller당 NFS Service용 포트는 1개씩 연결하면 되는지?
+            → controller당 포트 연결 개수 enable된 포트에는 반드시 개별 ip가 할당되어야 하므로, 사용 포트에 ip할당 필수
+            → 각 controller당 포트 1개씩 cable연결시 ip 4개 할당 필요
+        4.3.2 Fail-Over Case
+            1. 장애상황: controller 0 장애
+                → controller 0 ↔ controller 1 이중화 (같은 섀시의 controller 1 지원됨)
+                → 파트너 controller로 자동 ip fail-over 되며 장애 복구 시 자동 fail-back 됨
+            2. 장애상황: 섀시 1 전체 장애
+                → 섀시 2 지원
+                → 섀시 1(controller 0 & 1) 장애 시 섀시 2(controller 2 & 3)로 fail-over 됨
+            3. 장애상황: NFS 포트 연결 스위치 장애
+                → 스위치 1번 장애 시 controller 0은 1로 fail-over, controller 2는 3으로 fail-over 됨
+                → SPOF(스위치 단일 장애점)을 회피하기 위해 홀짝 컨트롤러를 서로 다른 스위치에 교차 분산 연결
+    4.4 VME Network Trunk 구성에 대한 검토
+        4.4.1 VME Host Network와 VM에서 사용할 Service Network가 Trunk로 구성이 가능한가?
+            → 가능함
+            → VME는 Host Netowk(MGMT),와 Service Network(compute)를 하나의 Trunk로 묶는 Converged 구성을 표준으로 지원
+            → 스위치 환경에 따라 LACP(802.3ad) 또는 Active-Backup 본딩 방식으로 설정 가능
