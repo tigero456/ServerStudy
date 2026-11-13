@@ -1,3 +1,12 @@
+프로젝트 일정
+    일정              작업 내용
+    10월 19일 (월)    HW 입고 및 BIOS 설정 작업, 입전 후 BIOS 설정 진행
+    10월 21일 (수)    Network & Storage Cable 연결 및 HPE VME(v9.1.0) 구성, Cable 포설 완료 일정에 맞춰 IDC 출입, HPE VME 구성 시작
+    10월 22일 (목)    Alletra B10230 스토리지 구성 및 San SW 조닝, 오전 스토리지 구성, 오후 San 조닝 작업 진행
+    10월 23일 (금)    HPE VME & Alletra 최종 구성 완료 및 본사 접속 확인
+    10월 26일 (월)    Zerto 환경 구성, 본사 방문하여 진행
+    10월 29일 (목)    Zerto 환경 구성 예비 일정, Zerto 환경 구성 완료
+    10월 30일 (금)    MIG 관련 Driver 등 사전 요건 체크 시작
 1. 반입 장비 리스트
     1.1 HPE DL380 Gen11 2U Server 3대
         1.1.1 CPU: 2
@@ -6,9 +15,11 @@
         1.1.4 NIC: 10G 2P SFP+ * 4EA
                 32G 2P HBA * 2EA
                 1G 4P UTP * 1EA
+        1.1.5 VME Version: 9.1.0
     1.2 HPE Alletra MP B10230 Storage 3대
         1.2.1 Disk: 7.68 TB NVMe SSD * 20EA
         1.2.2 NIC: 
+        1.2.3 Alletra Version: 10.6
     1.3 HPE Aruba Switch 2대
 2. 서버 및 스토리지 사용 랙
     1. HPE DL380 Gen11: 02BU56          2-3, 5-6, 8-9
@@ -79,3 +90,11 @@
             → 가능함
             → VME는 Host Netowk(MGMT),와 Service Network(compute)를 하나의 Trunk로 묶는 Converged 구성을 표준으로 지원
             → 스위치 환경에 따라 LACP(802.3ad) 또는 Active-Backup 본딩 방식으로 설정 가능
+    4.5 vVol & GFS2 개념 및 장단점
+    4.6 HPE VME Version 선택
+        4.6.1 9.0.2 vs 9.1.0
+            → 마이그레이션이 포함된 프로젝트로 Zerto와 VME matrix 참고 후 버전 선택
+            → 현재 9.1.0에 맞는 Zerto 출시 전이라 프로젝트 기간 고려하여 가이드 필요
+    4.7 Storage Effetive 300TB보장 관련
+        스토리지 구성안에 따른 CPG 수량 변경 시, 어디까지 게런티 할 수 있는가?
+        고객 요구 사항 : 용도에 맞게 Datastore 구분이 필요
