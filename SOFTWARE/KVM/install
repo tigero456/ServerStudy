@@ -1,0 +1,21 @@
+1. KVM 관련 패키지 설치
+dnf install -y qemu-kvm libvirt virt-install virt-manager
+
+2. 가상화 관리 데몬 libvirtd 서비스 시작
+systemctl start libvirtd
+systemctl status libvirtd
+
+3. 가상 네트워크 생성
+가상머신을 생성 전 가상 네트워크 생성
+
+4. 가상화 생성
+virt-install 
+
+5. 서버 로컬에서의 확인
+dnf install -y tigervnc
+vncviewer localhost:1
+
+6. ssh를 통한 서버 접속 후 가상머신 접속
+VNC Viewer 프로그램을 통해 확인가능 (RealVNC Viewer, Remmina 등)
+RealVNC Viewer 프로그램으로 확인
+프로그램 설치 후 서버 IP를 입력 하면 KVM으로 구성한 창 확인
