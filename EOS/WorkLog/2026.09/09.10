@@ -1,0 +1,6 @@
+MG새마을금고 : 정보보호 강화구축 OS 구성 변경
+1. root password 변경
+2. user 계정 생성 및 password 변경
+3. ssh root 접속권한 비활성화
+4. ntp 서버 설정
+5. storage에서 파일 복사

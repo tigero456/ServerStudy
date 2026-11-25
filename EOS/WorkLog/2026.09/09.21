@@ -1,0 +1,8 @@
+롯데손해보험 : IFRS17 Windows Server 16 to 19 업그레이드 작업
+1. 18시 시작
+2. vm장비는 백현기 수석이 작업
+3. 가산IDC 출입해서 USB포트 제거 후 2대 동시 작업 진행
+4. lotndfraps02(VMware), lotndfraps01(baremetal), lotndfrbel01(baremetal)
+5. version upgrade 중 71%에서 대기시간이 길어져 lotndfraps02(VMware) 진행 취소
+6. lotndfrbel01(baremetal) upgrade 완료
+7. lotndfraps02(VMware), lotndfraps01(baremetal) 2대는 백현기 수석이 다음날 진행예정

@@ -1,0 +1,16 @@
+사내업무: 수협중앙회 Web-EDI 커널 업데이트 요청
+1. 최초 요청
+    1.1 rocky 9.6 → rocky 9.8 update
+    1.2 rocky 9.8 default kernel 인 5.14.0-687.10.1 에서 5.14.0-687.15.1 으로 update
+2. 문의 사항
+    2.1 5.14.0-687.39.1, 5.14.0-687.42.1 중 update 가능 kernel version 확인 요청
+        → 둘다 가능함
+        → 2026.10.27(화) 작업 요청
+    2.2 5.14.0-570.132.1 update 가능 확인 요청
+        → EUS kernel 이라 불가능
+    2.3 rocky 9.6 에서 보안취약점 조치가능한 kernel version 확인
+        → rocky 9.6 에서는 보안취약점 조치가능한 kernel version 없음
+    2.4 5.14.0-687.59.1 kernel update 가능 확인 요청
+        → 가능
+        → 2026.11.04(수) 작업 요청
+        → rocky 9.8 iso 는 기존 작업에 사용하던 걸로 수협중앙회에 있고 kernel patch 파일만 준비

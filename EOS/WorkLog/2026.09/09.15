@@ -1,0 +1,9 @@
+SKT 성수사옥 : 서버 납품 16대
+1. 서버 이동
+2. 서버 마운트
+3. 카드 형상변환
+    3.1 primary riser kit 3번 슬롯 -> 1번 슬롯 (array card)
+    3.2 primary riser kit 1번 슬롯 -> 2번 슬롯 (utp card)
+    3.3 primary riser kit 2번 슬롯 -> 3번 슬롯 (fiber card)
+4. 트랜시버 장착
+5. USB 포트 막기
