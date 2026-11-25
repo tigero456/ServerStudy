@@ -1,0 +1,9 @@
+REDHAT9 버전부터 bond 인터페이스를 수동으로 내렸다올리면 slave 포트들이 같이 올라오지 않음
+
+원인: REDHAT9 이전에는 connection.autoconnect-port 옵션이 자동 yes 되지만
+REDHAT9 이후에는 옵션명이 connection.autoconnect-slave 로 변경되며 yes 옵션을 직접 입력해줘야함
+
+재기동시 자동으로 up되는 autoconnection yes 옵션과 다른 옵션임
+
+재기동시 bonding slave port 인터페이스 자동 up 옵션: autoconnection yes
+bonding slave port 인터페이스 수동제어시 자동 up 옵션: connection.autoconnect-slave yes

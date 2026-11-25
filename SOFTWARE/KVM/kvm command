@@ -1,0 +1,25 @@
+1. vm삭제
+    virsh destroy rhel8-vm01
+2. 디스크 삭제
+    virsh undefine rhel8-vm01 --remove-all-storage
+3. 가상화 생성
+    sudo virt-install \
+    --name <vm 명> \
+    --vcpus <cpu 개수> \
+    --memory <memory 용량> \
+    --disk path=/var/lib/libvirt/images/<vm 명>.qcow2,size=<디스크 사이즈>,format=qcow2 \
+    --location /var/lib/libvirt/images/<iso file 명> \
+    --os-variant <os 버전> \
+    --network network=default,model=virtio \
+    --graphics none \
+    --extra-args "console=ttyS0,115200n8 inst.text" \
+    --console pty,target_type=serial
+4. vm 재기동
+    virsh reboot rhel8-vm01
+5. vm 접속
+    virsh console rhel8-vm01
+6. 콘솔 접속 해제
+    Ctrl+]
+6. vm 리스트 확인
+    virsh list --all
+    
