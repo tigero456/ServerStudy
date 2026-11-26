@@ -1,21 +1,52 @@
 1. KVM 관련 패키지 설치
-dnf install -y qemu-kvm libvirt virt-install virt-manager
-
+    dnf install -y qemu-kvm libvirt virt-install virt-manager
 2. 가상화 관리 데몬 libvirtd 서비스 시작
-systemctl start libvirtd
-systemctl status libvirtd
-
-3. 가상 네트워크 생성
-가상머신을 생성 전 가상 네트워크 생성
-
-4. 가상화 생성
-virt-install 
-
-5. 서버 로컬에서의 확인
-dnf install -y tigervnc
-vncviewer localhost:1
-
-6. ssh를 통한 서버 접속 후 가상머신 접속
-VNC Viewer 프로그램을 통해 확인가능 (RealVNC Viewer, Remmina 등)
-RealVNC Viewer 프로그램으로 확인
-프로그램 설치 후 서버 IP를 입력 하면 KVM으로 구성한 창 확인
+    systemctl start libvirtd
+    systemctl status libvirtd
+3. 이미지 업로드
+    /var/lib/libvirt/images 경로에 부팅 iso 업로드
+4. 브릿지 네트워크 추가
+    4.1 인터페이스 생성
+        nmcli con add type bridge \
+        con-name br0 \
+        ifname br0
+    4.2 인터페이스 설정
+        nmcli con mod br0 \
+        ipv4.method manual \
+        ipv6.method ignore \
+        ipv4.addresses <ip>/<subnet> \
+        ipv4.gateway <gw> \
+        ipv4.dns <dns>
+    4.3 인터페이스 체크
+        ip -br addr show br0
+        bridge link
+        virsh net-list
+    4.4 브릿지 네트워크 설정 추가
+        vi /tmp/br0.xml
+            <network>
+            <name>br0</name>
+            <forward mode='bridge’/>
+            <bridge name='br0’/>
+            </network>
+    4.5 브릿지 네트워크 설정
+        virsh net-define /tmp/br0.xml
+        virsh net-start br0
+        virsh net-autostart br0
+        virsh net-autostart default --disable
+    4.5 체크
+        virsh net-list
+5. 가상화 생성
+    sudo virt-install \
+    --name <vm 명> \
+    --vcpus <cpu 개수> \
+    --memory <memory 용량> \
+    --disk path=/var/lib/libvirt/images/<vm 명>.qcow2,size=<디스크 사이즈>,format=qcow2 \
+    --location /var/lib/libvirt/images/<iso file 명> \
+    --os-variant <os 버전> \
+    --network network=default,model=virtio \
+    --graphics none \
+    --extra-args "console=ttyS0,115200n8 inst.text" \
+    --console pty,target_type=serial
+6. vm ping 통신 설정
+    firewall-cmd --permanent --zone=trusted --add-interface=br0
+    firewall-cmd --reload

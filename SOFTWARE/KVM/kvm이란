@@ -1,0 +1,16 @@
+KVM
+    1. Kernel-based Virtual Machine
+    2. 리눅스 커널을 Hipervisor로 동작시키는 가상화 기술
+QEMU
+    1. device emulation과 vm 실행을 담당
+libvirt
+    1. API 및 관리도구 (virsh, virt-install 등)
+사전 조건
+    1. CPU 가상화 지원 여부
+    2. RHEL subscription 상태 확인
+설치 방법
+    1. repository에서 핵심 Hipervisor와 cli 관리도구 설치
+    2. libvirt 서빗 활성화 및 시작
+    3. 호스트 가상화 환경 검증
+    4. 일반 사용자 권한 부여(선택)
+    5. VM 생성
